@@ -1,9 +1,18 @@
 import { Command } from 'commander'
 import { version } from '../package.json'
 import create from './command/create'
+import update from './command/update'
 
 const program = new Command('limvue')
 program.version(version, '-v, --version')
+
+program
+  .command('update')
+  .description('更新脚手架 limvue-cli')
+  .action(async () => {
+    // 添加update方法
+    await update()
+  })
 
 program
   .command('create')

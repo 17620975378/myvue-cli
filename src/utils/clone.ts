@@ -2,7 +2,7 @@ import { SimpleGit, simpleGit, SimpleGitOptions } from 'simple-git'
 import createLogger from 'progress-estimator'
 import chalk from 'chalk'
 import { log } from './log'
-import figlet from 'figlet'
+// import figlet from 'figlet'
 
 // 设置进度条
 const logger = createLogger({

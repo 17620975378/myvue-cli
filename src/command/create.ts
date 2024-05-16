@@ -1,9 +1,14 @@
 import path from 'path'
 import fs from 'fs-extra'
+import axios, { AxiosResponse } from 'axios'
+import { gt } from 'lodash'
 import { input, select } from '@inquirer/prompts'
 import { clone } from '../utils/clone'
 import { log } from '../utils/log'
+import { version, name } from '../../package.json'
+import chalk from 'chalk'
 
+// 模版信息
 export interface templateInfo {
   name: string // 项目名称
   description: string //项目描述
@@ -11,6 +16,7 @@ export interface templateInfo {
   branch: string //项目分支
 }
 
+// 模版列表
 export const templates: Map<string, templateInfo> = new Map([
   [
     'template-vue3-ts-A',
@@ -32,6 +38,69 @@ export const templates: Map<string, templateInfo> = new Map([
   ],
 ])
 
+// 获取npm最新版本
+const getNpmInfo = async (name: string) => {
+  const npmUrl = `https://registry.npmjs.org/${name}`
+  let res: AxiosResponse = await axios.get(npmUrl)
+  if (res) {
+    return res.data['dist-tags'].latest
+  } else {
+    log.error('获取npm信息失败')
+  }
+}
+
+// 获取到npm最新版本，比较当前脚手架版本和npm最新版本
+const checkVersion = async (pjName: string, pjVersion: string) => {
+  const latestVersion = await getNpmInfo(pjName)
+  // console.log(latestVersion)
+  const need = gt(latestVersion, pjVersion)
+  if (need) {
+    log.warning(
+      `检查到limvue最新版本: ${chalk.bgBlueBright(
+        latestVersion
+      )}，当前版本为${chalk.blueBright(pjVersion)}，请及时更新！`
+    )
+    console.log(
+      `可使用: ${chalk.yellow(
+        'npm install limvue-cli@latest'
+      )},或者使用 ${chalk.yellow('limvue update')}`
+    )
+  }
+  return need
+}
+
+// export const getNpmInfo = async (npmName: string) => {
+//   const npmUrl = 'https://registry.npmjs.org/' + npmName
+//   let res = {}
+//   try {
+//     res = await axios.get(npmUrl)
+//   } catch (err) {
+//     log.error(err as string)
+//   }
+//   return res
+// }
+
+// export const getNpmLatestVersion = async (npmName: string) => {
+//   // data['dist-tags'].latest 为最新版本号
+//   const { data } = (await getNpmInfo(npmName)) as AxiosResponse
+//   return data['dist-tags'].latest
+// }
+
+// export const checkVersion = async (name: string, curVersion: string) => {
+//   const latestVersion = await getNpmLatestVersion(name)
+//   const need = gt(latestVersion, curVersion)
+//   if (need) {
+//     log.info(
+//       `检测到 dawei 最新版:${chalk.blueBright(
+//         latestVersion
+//       )} 当前版本:${chalk.blueBright(curVersion)} ~`
+//     )
+//     log.info(`可使用 ${chalk.yellow('pnpm')} install dawei-cli@latest 更新 ~`)
+//   }
+//   return need
+// }
+
+// 创建项目
 export default async function cretae(projectName: string) {
   if (!projectName) {
     projectName = await input({
@@ -69,6 +138,9 @@ export default async function cretae(projectName: string) {
       return
     }
   }
+
+  // 检查版本更新
+  await checkVersion(name, version)
 
   // 选择模版
   const selectTemplateName = await select({
