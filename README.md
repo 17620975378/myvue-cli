@@ -1,6 +1,6 @@
 # limvue-cli
 
-![Npm 版本](https://img.shields.io/badge/dawei-cli_v0.0.1-green)
+![Npm 版本](https://img.shields.io/badge/limvue-cli_v0.0.1-green)
 
 ## 📖 简介
 
