@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 import { version } from '../package.json'
 import create from './command/create'
-import update from './command/update'
+import { update } from './command/update'
 
 const program = new Command('limvue')
 program.version(version, '-v, --version')

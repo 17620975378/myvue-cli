@@ -1,4 +1,4 @@
-import { exec } from 'child_process'
+import process from 'child_process'
 import ora from 'ora'
 import chalk from 'chalk'
 
@@ -12,9 +12,11 @@ const spinner = ora({
   },
 })
 
-export default function update() {
+export function update() {
   spinner.start()
-  exec('npm install limvue-cli@latest -g', (error) => {
+  process.exec('npm install limvue-cli@latest -g', (error) => {
+    // 更新成功后，重新执行命令
+    spinner.stop()
     if (!error) {
       console.log(chalk.green('更新成功'))
     } else {
