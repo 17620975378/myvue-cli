@@ -1,6 +1,6 @@
 {
   "name": "limvue-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "limvue-cli脚手架",
   "main": "index.js",
   "keywords": [
