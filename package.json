@@ -1,0 +1,44 @@
+{
+  "name": "myvue-cli",
+  "version": "0.0.1",
+  "description": "myvue-cli脚手架",
+  "main": "dist/index.js",
+  "keywords": [
+    "admin-pro-template"
+  ],
+  "files": [
+    "dist",
+    "bin",
+    "README.md"
+  ],
+  "author": {
+    "name": "lim"
+  },
+  "bin": {
+    "lim": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c rollup.config.js --bundleConfigAsCjs"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@inquirer/prompts": "^5.0.3",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/fs-extra": "^11.0.4",
+    "chalk": "^4.1.2",
+    "commander": "^12.0.0",
+    "fs-extra": "^11.2.0",
+    "log-symbols": "^6.0.0",
+    "progress-estimator": "^0.3.1",
+    "rollup": "^4.17.2",
+    "rollup-plugin-node-externals": "5.1.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "simple-git": "^3.24.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
+  }
+}
