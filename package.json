@@ -18,7 +18,7 @@
     "name": "lim"
   },
   "bin": {
-    "lim": "bin/index.js"
+    "limvue": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
